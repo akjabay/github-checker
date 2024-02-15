@@ -22,6 +22,7 @@ const initBot = async function ({ beginFrom = 538 } = []) {
                     }
                 } catch (error) {
                     console.log('error')
+                    await (new Promise(resolve => setTimeout(resolve, 3000)))();
                     initBot({ beginFrom: index })
                     return;
                 }
