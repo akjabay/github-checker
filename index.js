@@ -1,11 +1,12 @@
 const axios = require('axios').default;
+const data = require('./github-1.js');
 
-const initBot = async function ({ beginFrom = 538 } = []) {
+class Checker {
+    constructor() {
+    }
 
+    initBot = async function ({ beginFrom = 538 } = []) {
 
-    try {
-
-        const data = require('./github-1.js');
 
         for await (const [index, user] of data.reverse().entries()) {
 
@@ -21,20 +22,18 @@ const initBot = async function ({ beginFrom = 538 } = []) {
                         console.log(index, user.identity)
                     }
                 } catch (error) {
-                    console.log('error')
-                    await (new Promise(resolve => setTimeout(resolve, 3000)))();
-                    initBot({ beginFrom: index })
+                    await new Promise(resolve => setTimeout(resolve, 5000));
+                    this.initBot({ beginFrom: index })
                     return;
                 }
             }
         }
 
-    } catch (error) {
-        console.log('error')
-    }
 
+    }
 
 }
 
+const checker = new Checker();
 
-initBot()
+checker.initBot();
